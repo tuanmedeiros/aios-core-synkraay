@@ -3,11 +3,52 @@
 **Task ID:** CCM-PI-004
 **Version:** 1.0.0
 **Command:** `*multi-project-setup`
+<<<<<<< HEAD
 **Agent:** Conduit (project-integrator)
 **Purpose:** Set up Claude Code for multiple related projects, configuring shared user settings, project-specific overrides, shared MCP servers, and cross-project rules.
 
 ---
 
+=======
+**Owner:** Conduit (project-integrator)
+**Purpose:** Set up Claude Code for multiple related projects, configuring shared user settings, project-specific overrides, shared MCP servers, and cross-project rules.
+
+## Contrato SINKRA
+
+task: multi-project-setup
+atomic_layer: Atom
+executor: project-integrator
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- multi-project-setup-report
+- recomendação executável
+output_schema: multi-project-plan-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- All projects detected and mapped
+- Shared config generated without duplication
+- Project isolation verified per workspace
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```

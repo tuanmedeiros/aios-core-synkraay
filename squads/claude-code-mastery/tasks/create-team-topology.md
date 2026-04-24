@@ -7,8 +7,46 @@
 **Mode:** Interactive (elicit: true)
 **Quality Standard:** Team topology tested with dry-run, all agents load successfully
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: create-team-topology
+atomic_layer: Atom
+executor: swarm-orchestrator
+Domain: Tactical
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- create-team-topology-report
+- recomendação executável
+output_schema: team-topology-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 This task designs an Agent Team configuration where multiple subagents collaborate on a workload. It covers topology selection, role definition, communication patterns, and isolation strategies.
@@ -127,7 +165,11 @@ roles:
 
 3.1. For each role from Phase 2, create `.claude/agents/{role-name}.md`.
 3.2. Use the create-agent-definition task format for each file.
+<<<<<<< HEAD
 3.3. Include team-specific instructions in each agent:
+=======
+3.3. Include team-specific instructions in each specialist:
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
    - What other agents exist on the team
    - Where to write outputs (shared directory)
    - How to signal completion
@@ -161,7 +203,11 @@ Are subtasks independent with no shared state?
 
 4.1. Select topology based on decomposition analysis.
 4.2. Document the topology with an ASCII diagram.
+<<<<<<< HEAD
 4.3. Set `max_turns` guidance per agent:
+=======
+4.3. Set `max_turns` guidance per specialist:
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
    - Simple tasks: 5-10 turns
    - Standard tasks: 15-25 turns
    - Complex tasks: 30-50 turns

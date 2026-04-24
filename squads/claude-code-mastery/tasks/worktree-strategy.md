@@ -7,8 +7,46 @@
 **Mode:** Interactive (elicit: true)
 **Quality Standard:** Worktree lifecycle tested end-to-end, cleanup verified
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: worktree-strategy
+atomic_layer: Atom
+executor: swarm-orchestrator
+Domain: Tactical
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- worktree-strategy-report
+- recomendação executável
+output_schema: worktree-plan-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 This task plans git worktree isolation for agent teams where multiple agents modify code simultaneously. Worktrees give each agent its own working directory and branch, eliminating merge conflicts during execution and deferring integration to a controlled merge phase.
@@ -128,6 +166,7 @@ branches:
   base: "feature/auth-system"
   worktree_branches:
     - name: "feature/auth-system/api-agent"
+<<<<<<< HEAD
       agent: "api-agent"
       files_owned: ["src/api/**"]
     - name: "feature/auth-system/test-agent"
@@ -135,6 +174,15 @@ branches:
       files_owned: ["tests/**"]
     - name: "feature/auth-system/docs-agent"
       agent: "docs-agent"
+=======
+      route_route_to: "api-agent"
+      files_owned: ["src/api/**"]
+    - name: "feature/auth-system/test-agent"
+      route_route_to: "test-agent"
+      files_owned: ["tests/**"]
+    - name: "feature/auth-system/docs-agent"
+      route_route_to: "docs-agent"
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
       files_owned: ["docs/**"]
 ```
 
@@ -293,11 +341,19 @@ worktree_strategy_result:
   isolation_needed: true
   reason: "2 agents modify overlapping files in src/"
   worktrees:
+<<<<<<< HEAD
     - agent: "api-agent"
       path: "../project-wt-api-agent"
       branch: "feature/auth-system/api-agent"
       status: "created"
     - agent: "test-agent"
+=======
+    - route_to: "api-agent"
+      path: "../project-wt-api-agent"
+      branch: "feature/auth-system/api-agent"
+      status: "created"
+    - route_to: "test-agent"
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
       path: "../project-wt-test-agent"
       branch: "feature/auth-system/test-agent"
       status: "created"

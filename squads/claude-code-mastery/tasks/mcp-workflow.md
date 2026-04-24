@@ -1,6 +1,7 @@
 # Task: MCP Server Management Workflow
 
 **Task ID:** mcp-workflow
+<<<<<<< HEAD
 **Version:** 1.0
 **Purpose:** Discover, evaluate, configure, and validate MCP servers for a project's tech stack
 **Orchestrator:** @mcp-integrator (Piper)
@@ -9,6 +10,49 @@
 
 ---
 
+=======
+**Version:** 1.1
+**Purpose:** Discover, evaluate, configure, and validate MCP servers for a project's tech stack using the current Claude Code MCP surfaces and policy constraints
+**Orchestrator:** @mcp-integrator (Piper)
+**Mode:** Interactive (elicit: true)
+**Quality Standard:** Fully tested MCP integration with documented context budget, ownership, and policy fit
+
+## Contrato SINKRA
+
+task: mcp-workflow
+atomic_layer: Atom
+executor: mcp-integrator
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- mcp_requirement
+- tooling_context
+- context_budget
+Output:
+- mcp-integration-report
+- mcp-config
+output_schema: mcp-config
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 This task guides the complete lifecycle of MCP server management: from discovering which servers benefit the project, through evaluating their context budget impact, to configuring and testing them in Claude Code.
@@ -27,9 +71,15 @@ INPUT (project_tech_stack + current_mcps)
     -> Recommend add/remove decisions
     |
 [PHASE 3: CONFIGURATION]
+<<<<<<< HEAD
     -> Choose config location (project vs global)
     -> Select transport (stdio vs HTTP Streamable)
     -> Write MCP entries to settings
+=======
+    -> Choose config surface (.mcp.json vs shared/global settings vs enterprise managed)
+    -> Preserve ownership and dedup rules
+    -> Write MCP entries to the correct surface
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
     |
 [PHASE 4: TRANSPORT SELECTION]
     -> Evaluate local vs remote requirements
@@ -57,7 +107,11 @@ OUTPUT: Configured MCP servers + context budget report + CLAUDE.md updates
 |-------|------|--------|----------|------------|
 | project_root | string | Auto-detect | yes | Valid directory with package.json or equivalent |
 | tech_stack | array | Scan or user | yes | List of frameworks/languages in use |
+<<<<<<< HEAD
 | current_mcps | object | .claude/settings.json | no | Existing MCP configuration |
+=======
+| current_mcps | object | .mcp.json + settings layers + managed-mcp.json | no | Existing MCP configuration |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 | context_budget_limit | number | User or default | no | Max tokens for MCP overhead (default: 10000) |
 
 ---
@@ -65,7 +119,11 @@ OUTPUT: Configured MCP servers + context budget report + CLAUDE.md updates
 ## Preconditions
 
 1. Claude Code is installed and operational in the project
+<<<<<<< HEAD
 2. `.claude/settings.json` or `~/.claude.json` exists (or will be created)
+=======
+2. `.mcp.json`, `.claude/settings.json`, `~/.claude/settings.json`, or `managed-mcp.json` is accessible as appropriate
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 3. User has access to install MCP server binaries (npm, pip, docker)
 4. Network access for remote MCP servers (if applicable)
 
@@ -95,7 +153,11 @@ OUTPUT: Configured MCP servers + context budget report + CLAUDE.md updates
 | Docker services | desktop-commander | Container management |
 | GitHub repo | github-cli (native) | PR/issue management |
 
+<<<<<<< HEAD
 1.3. List current MCP servers from config and identify gaps.
+=======
+1.3. List current MCP servers from `.mcp.json`, settings layers, and enterprise policy surfaces; identify gaps and current ownership (manual, plugin, enterprise).
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ---
 
@@ -142,18 +204,35 @@ Example:
 
 **Goal:** Write MCP server configuration to the appropriate location.
 
+<<<<<<< HEAD
 ### Config Location Decision
 
 | Scope | File | When to Use |
 |-------|------|-------------|
 | Project-only | `.claude/settings.json` | MCP is project-specific (e.g., supabase for this DB) |
 | Global (all projects) | `~/.claude.json` | MCP is universally useful (e.g., context7, exa) |
+=======
+### Config Surface Decision
+
+| Scope | Primary Surface | When to Use |
+|-------|-----------------|-------------|
+| Project-owned server registry | `.mcp.json` | Default choice for manual, project-scoped MCP server definitions |
+| Shared project settings | `.claude/settings.json` | Permissions, hooks, and team defaults that complement MCP usage |
+| User/global defaults | `~/.claude/settings.json` | Personal defaults across projects; avoid storing project-owned server registry here unless intentionally personal |
+| Enterprise-managed policy | `managed-mcp.json` | Organization-enforced MCP allow/deny policy; can take exclusive control |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ### Steps
 
 3.1. Determine scope for each MCP server.
+<<<<<<< HEAD
 3.2. Read existing configuration file.
 3.3. Add MCP server entries with proper structure:
+=======
+3.2. Inspect `.mcp.json`, project settings, user settings, and `managed-mcp.json` before editing anything.
+3.3. If enterprise MCP config is active, do not add manual servers locally; document the block and hand off to `@devops`.
+3.4. Add MCP server entries with proper structure to `.mcp.json` unless an existing managed policy dictates another surface:
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ```json
 {
@@ -169,7 +248,15 @@ Example:
 }
 ```
 
+<<<<<<< HEAD
 3.4. Validate JSON structure after writing.
+=======
+3.5. Preserve manual ownership rules:
+   - Manual MCP definitions suppress duplicate plugin servers
+   - Between plugins, first-loaded wins when signatures collide
+3.6. If writing `.mcp.json` outside Claude Code's native flow, use temp file -> flush -> atomic rename semantics.
+3.7. Validate JSON structure after writing.
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ---
 
@@ -181,8 +268,13 @@ Example:
 
 | Transport | Protocol | Use Case | Latency | Setup |
 |-----------|----------|----------|---------|-------|
+<<<<<<< HEAD
 | **stdio** (default) | stdin/stdout | Local CLI tools, most servers | Low | Simple |
 | **HTTP Streamable** | HTTP + SSE | Remote servers, shared infra | Medium | URL + auth |
+=======
+| **stdio** (default) | local child process | Local CLI tools, most servers | Low | Simple |
+| **Remote HTTP** | streamable HTTP endpoint | Remote servers, shared infra | Medium | URL + auth |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ### Decision Tree
 
@@ -191,7 +283,11 @@ Is the MCP server running locally?
   YES -> Use stdio (default)
     Is it a CLI binary? -> command + args
     Is it a Docker container? -> docker run command
+<<<<<<< HEAD
   NO -> Use HTTP Streamable
+=======
+  NO -> Use remote HTTP
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
     Does it need auth? -> Add Authorization header
     Is it behind a proxy? -> Configure proxy URL
 ```
@@ -199,6 +295,10 @@ Is the MCP server running locally?
 4.1. For each MCP server, determine if local or remote.
 4.2. Configure transport accordingly.
 4.3. Set environment variables for API keys (never hardcode in config).
+<<<<<<< HEAD
+=======
+4.4. Record whether remote hosting, enterprise policy, or plugin ownership affects operability.
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ---
 
@@ -218,6 +318,10 @@ Is the MCP server running locally?
    - API key valid? (env vars set)
    - Port available? (for HTTP transport)
    - Network accessible? (for remote servers)
+<<<<<<< HEAD
+=======
+   - Duplicate manual/plugin definitions causing suppression?
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ---
 
@@ -243,9 +347,15 @@ Need to accomplish a task?
 6.1. Add or update MCP section in CLAUDE.md with:
    - List of configured servers and their purposes
    - Tool selection priority (native > MCP > Bash)
+<<<<<<< HEAD
    - Server-specific usage rules
 6.2. Create `.claude/rules/mcp-usage.md` if it does not exist, with path-based activation.
 6.3. Document any server-specific gotchas (auth, rate limits, etc.).
+=======
+   - Server-specific usage rules and ownership notes
+6.2. Create `.claude/rules/mcp-usage.md` if it does not exist, with path-based activation.
+6.3. Document any server-specific gotchas (auth, rate limits, enterprise policy, plugin suppression, etc.).
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ---
 
@@ -267,6 +377,10 @@ mcp_workflow_result:
   total_token_cost: 2950
   budget_status: "green"
   files_modified:
+<<<<<<< HEAD
+=======
+    - ".mcp.json"
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
     - ".claude/settings.json"
     - "CLAUDE.md"
   documentation_updated: true
@@ -281,5 +395,11 @@ mcp_workflow_result:
 | MCP token budget exceeds 15,000 tokens | HALT -- must remove servers before proceeding |
 | API key required but not provided | SKIP server -- document as pending |
 | MCP server binary not installable | SKIP server -- suggest alternative |
+<<<<<<< HEAD
 | Config file write fails | HALT -- check file permissions |
+=======
+| Enterprise `managed-mcp.json` has exclusive control | HALT -- document policy owner and escalate |
+| Config file write fails | HALT -- check file permissions |
+| Secrets would need to be hardcoded into `.mcp.json` | HALT -- move secret to env or managed secret surface |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 | All MCP servers fail validation | HALT -- likely environment issue, debug first |

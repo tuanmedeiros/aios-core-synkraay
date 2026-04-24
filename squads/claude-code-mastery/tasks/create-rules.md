@@ -6,8 +6,46 @@
 **Orchestrator:** Sigil (config-engineer)
 **Purpose:** Create conditional rules in `.claude/rules/` with proper `paths:` YAML frontmatter for context-efficient loading, ensuring rules only activate when relevant files are being worked on.
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: create-rules
+atomic_layer: Atom
+executor: config-engineer
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- create-rules-report
+- recomendação executável
+output_schema: rules-directory
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```

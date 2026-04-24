@@ -7,8 +7,46 @@
 **Mode:** Interactive (elicit: true)
 **Quality Standard:** Pipeline runs successfully in headless mode, safety limits configured, costs controlled
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: ci-cd-setup
+atomic_layer: Atom
+executor: project-integrator
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- ci-cd-setup-report
+- recomendação executável
+output_schema: ci-pipeline-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- CI pipeline file created and valid
+- Hooks integrated into pipeline
+- Tests pass in CI environment
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 This task sets up Claude Code to run in CI/CD pipelines using headless mode (`claude -p`). It covers GitHub Actions integration, API key management, output format configuration, and safety limits to prevent runaway costs.

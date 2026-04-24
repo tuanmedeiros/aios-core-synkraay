@@ -6,8 +6,46 @@
 **Orchestrator:** Sigil (config-engineer)
 **Purpose:** Audit all active Claude Code settings layers for conflicts, redundancies, security gaps, and optimization opportunities by reading managed, project, local, and user configuration files.
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: audit-settings
+atomic_layer: Atom
+executor: config-engineer
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- project_root
+- settings existentes
+- políticas de segurança
+Output:
+- settings-audit-report
+- recomendações priorizadas
+output_schema: config-score-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```
@@ -114,8 +152,13 @@ Check that critical sensitive files are protected:
 1. Determine effective permission mode (highest precedence layer wins)
 2. Assess appropriateness for the project:
    - `bypassPermissions` on a team project -> CRITICAL warning
+<<<<<<< HEAD
    - `autoApprove` without deny rules -> HIGH warning
    - `askAlways` with extensive allow rules -> INFO (could upgrade to acceptEdits)
+=======
+   - `dontAsk` without explicit allow rules -> HIGH warning (fail-closed but operationally brittle)
+   - `default` with extensive allow rules -> INFO (may still be right, but review if `acceptEdits` is better)
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
    - `acceptEdits` with proper deny rules -> GOOD (recommended setup)
 3. Check for enterprise lockdown:
    - `disableBypassPermissionsMode` in managed settings

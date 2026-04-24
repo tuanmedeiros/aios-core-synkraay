@@ -7,8 +7,46 @@
 **Mode:** Interactive (elicit: true)
 **Quality Standard:** Dependency graph validated, no circular dependencies, merge strategy tested
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: parallel-decomposition
+atomic_layer: Atom
+executor: swarm-orchestrator
+Domain: Tactical
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- parallel-decomposition-report
+- recomendação executável
+output_schema: decomposition-plan-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Task DAG generated with dependency graph
+- Independent tasks identified for parallel execution
+- Parallelism verified with no circular dependencies
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 This task analyzes a workload, identifies independent subtasks, designs a parallel execution plan, and configures agents for simultaneous execution. The key insight: **maximum parallelism comes from minimizing dependencies, not maximizing agents**.

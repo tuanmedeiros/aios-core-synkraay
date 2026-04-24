@@ -6,8 +6,46 @@
 **Orchestrator:** Sigil (config-engineer)
 **Purpose:** Configure Claude Code settings for a project by analyzing project needs and generating a tailored `.claude/settings.json` with appropriate permissions, deny rules, and MCP server configuration.
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: configure-claude-code
+atomic_layer: Atom
+executor: config-engineer
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- project_root
+- security_level
+- existing_settings
+Output:
+- claude-settings-plan
+- settings.json recomendado
+output_schema: claude-settings-plan-json
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```
@@ -101,8 +139,13 @@ Select the appropriate permission mode:
 | Security Level | Default Mode | Rationale |
 |---------------|--------------|-----------|
 | standard | acceptEdits | Auto-approves file edits, prompts for bash/network |
+<<<<<<< HEAD
 | strict | askAlways | Prompts for every operation including edits |
 | enterprise | askAlways | Plus managed-settings.json restrictions |
+=======
+| strict | default | Prompts unless a rule or safe-path fast path already allows the operation |
+| enterprise | default | Plus managed-settings.json restrictions |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 Present the selected mode with explanation. Allow user override.
 

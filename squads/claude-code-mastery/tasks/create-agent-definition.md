@@ -7,8 +7,46 @@
 **Mode:** Interactive (elicit: true)
 **Quality Standard:** Agent file passes lint, loads correctly, and executes test prompt
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: create-agent-definition
+atomic_layer: Atom
+executor: swarm-orchestrator
+Domain: Tactical
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- create-agent-definition-report
+- recomendação executável
+output_schema: agent-definition-md
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Agent .md file valid with YAML frontmatter
+- Persona, scope, and commands present
+- Agent registered in squad config
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 This task creates a custom subagent definition in `.claude/agents/` that can be invoked via the Agent tool. Subagents are specialized Claude instances with scoped instructions, model selection, and optional tool restrictions.
@@ -85,7 +123,11 @@ OUTPUT: Agent definition file + test results
 ### Purpose Template
 
 ```
+<<<<<<< HEAD
 Agent: {name}
+=======
+Owner: {name}
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 Does: {primary responsibility}
 Tasks: {task1}, {task2}, {task3}
 Does NOT: {anti1}, {anti2}
@@ -237,13 +279,22 @@ Is the task complex with ambiguous inputs?
 
 ### Steps
 
+<<<<<<< HEAD
 6.1. Invoke the agent using the Agent tool with a representative prompt.
 6.2. Verify the agent:
+=======
+6.1. Invoke the specialist using the Agent tool with a representative prompt.
+6.2. Verify the specialist:
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
    - Uses only its allowed tools
    - Follows its instructions
    - Produces output in the expected format
    - Stays within its defined scope
+<<<<<<< HEAD
 6.3. If the agent fails, iterate on instructions (most common fix).
+=======
+6.3. If the specialist fails, iterate on instructions (most common fix).
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 6.4. Run 2-3 different test prompts to cover edge cases.
 
 ---

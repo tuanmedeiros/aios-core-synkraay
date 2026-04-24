@@ -7,8 +7,46 @@
 **Mode:** Autonomous (elicit: false)
 **Quality Standard:** Rot score calculated, all stale references identified, remediation plan generated
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: context-rot-audit
+atomic_layer: Atom
+executor: project-integrator
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- context-rot-audit-report
+- recomendação executável
+output_schema: rot-report-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Rot score calculated with numeric breakdown
+- Stale entries listed with age and source
+- Fix recommendations prioritized by impact
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 Context rot occurs when CLAUDE.md, rules files, and auto-memory accumulate outdated instructions, references to deleted files, deprecated patterns, and bloated content. This audit systematically detects rot and produces a remediation plan.
@@ -238,8 +276,14 @@ rules_audit:
    - Check if referenced files still exist
    - Check if referenced patterns are still valid
    - Check for contradictions with current CLAUDE.md
+<<<<<<< HEAD
 5.3. Check MEMORY.md line count (should be under 200 for auto-loading).
 5.4. Identify entries that are session-specific (should not be in persistent memory).
+=======
+5.3. Check `MEMORY.md` limits (should stay under 200 lines and 25 KB).
+5.4. Identify entries that are session-specific or derivable from current project state (should not be in persistent memory).
+5.5. If assistant/KAIROS daily logs exist, verify they remain append-only logs rather than rewritten indexes.
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ---
 

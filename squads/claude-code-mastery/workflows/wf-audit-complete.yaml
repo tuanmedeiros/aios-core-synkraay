@@ -18,6 +18,47 @@ workflow:
   entry_agent: claude-mastery-chief
   estimated_duration: "20-40 minutes"
 
+<<<<<<< HEAD
+=======
+thresholds:
+  baseline_score_min:
+    threshold: 0.2
+  settings_parse_success:
+    threshold: 1.0
+  context_health_threshold:
+    threshold: 0.2
+  mcp_budget_compliance:
+    threshold: 0.85
+  aggregated_score_threshold:
+    threshold: 0.7
+
+error_handling:
+  on_validation_fail: BLOCK
+  on_context_rot_critical: EMIT_REVIEW_HANDOFF
+  on_mcp_budget_breach: WARN_AND_CONTINUE
+  on_domain_audit_failure: RETRY_AND_ESCALATE
+
+state_machine:
+  initial: phase_0
+  terminal: phase_2
+  transitions:
+    - from: phase_0
+      to: phase_1
+      requires: [baseline_score]
+      gate: "baseline_score > 0"
+      journey_log: JLOG-CCM-001
+    - from: phase_1
+      to: phase_2
+      requires: [config_score, rot_score, mcp_score]
+      gate: "all domain audits completed"
+      journey_log: JLOG-CCM-002
+  veto_transitions:
+    - from: phase_2
+      condition: "any domain_score == 0"
+      action: "re-run failed domain audit"
+      journey_log: JLOG-CCM-003
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 # ────────────────────────────────────────────────────────────────────────────
 # PHASES
 # ────────────────────────────────────────────────────────────────────────────

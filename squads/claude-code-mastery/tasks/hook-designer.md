@@ -1,6 +1,7 @@
 # Task: Design Custom Hooks
 
 **Task ID:** CCM-PI-006
+<<<<<<< HEAD
 **Version:** 1.0.0
 **Command:** `*hook-designer`
 **Agent:** Conduit (project-integrator)
@@ -8,6 +9,48 @@
 
 ---
 
+=======
+**Version:** 1.1.0
+**Command:** `*hook-designer`
+**Owner:** Conduit (project-integrator)
+**Purpose:** Design custom Claude Code hooks for a project by identifying automation needs, choosing appropriate hook types and events, designing hook logic, and producing implementation-ready specifications aligned to the current runtime behavior.
+
+## Contrato SINKRA
+
+task: hook-designer
+atomic_layer: Atom
+executor: hooks-architect
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- hook_purpose
+- trigger_event
+- project_path
+Output:
+- hook-design-spec
+- hook-implementation
+output_schema: hook-implementation
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```
@@ -89,24 +132,44 @@ If the need is not hook-suitable, recommend the appropriate alternative.
 
 ### Phase 2: Choose Hook Type and Category
 
+<<<<<<< HEAD
 Claude Code hooks operate in two transport modes:
 
 | Transport | Language | Best For | Constraint |
 |-----------|----------|----------|------------|
 | command | Any (bash, node, python) | File operations, API calls, complex logic | Must exit within timeout |
 | prompt | N/A (returns text) | Injecting context into conversation | Output added to assistant context |
+=======
+Claude Code hooks operate in four handler types:
+
+| Type | Language | Best For | Constraint |
+|------|----------|----------|------------|
+| command | Any (bash, node, python) | Validation, file operations, API calls, complex logic | Must exit within timeout |
+| prompt | N/A (returns text) | Injecting guidance into conversation | Output is added to assistant context |
+| http | Remote service/webhook | Observability, external policy engines, AIOX Monitor | Network dependency; keep failures non-blocking unless critical |
+| agent | Claude sub-agent | Multi-turn review, richer contextual judgment | Highest latency/cost; reserve for high-value reasoning |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 **Hook categories by event:**
 
 | Event | When Fires | Common Uses |
 |-------|-----------|-------------|
+<<<<<<< HEAD
 | PreToolUse | Before any tool call | Block dangerous commands, validate inputs |
+=======
+| PreToolUse | Before any tool call | Block dangerous commands, validate inputs, stop foreground `sleep`/poll loops |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 | PostToolUse | After tool completes | Log results, capture metrics, trigger follow-ups |
 | Stop | Session ends normally | Save state, generate summary, update memory |
 | SubagentStop | Subagent completes | Collect results, merge outputs |
 | PreCompact | Before context compaction | Preserve critical state |
 | Notification | User receives notification | Custom notification routing |
 | UserPromptSubmit | User sends message | Input preprocessing, routing |
+<<<<<<< HEAD
+=======
+| PermissionRequest | When a permission dialog would appear | Auto-allow or auto-deny promptable operations |
+| ConfigChange | When settings surfaces mutate during session | Audit config drift, block unauthorized settings rewrites |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 Select the appropriate event based on when the automation should trigger.
 
@@ -119,6 +182,12 @@ For the identified need, determine:
    - Tool name filter (for PreToolUse/PostToolUse)
    - Session state checks
    - File pattern matching
+<<<<<<< HEAD
+=======
+   - Runtime caveats by event:
+     - `PermissionRequest` does not fire in headless mode and is bypassed by `dontAsk`
+     - `ConfigChange` covers settings surfaces, not `.mcp.json`/`managed-mcp.json`
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 3. **Timeout**: maximum execution time (default 10s for command hooks)
 4. **Error behavior**: what happens if the hook fails
    - `continue`: session proceeds (recommended for non-critical hooks)
@@ -144,6 +213,10 @@ Design the hook implementation:
 
 3. **Output contract**: what the hook returns
    - For PreToolUse: `{ "decision": "allow" }` or `{ "decision": "block", "reason": "..." }`
+<<<<<<< HEAD
+=======
+   - For PermissionRequest: allow/deny resolution only; this event cannot introduce a third "block" state
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
    - For prompt hooks: plain text to inject into conversation
    - For command hooks: exit code 0 (success) or non-zero (failure)
 
@@ -172,6 +245,7 @@ Create the hook implementation:
      "hooks": {
        "{EventName}": [
          {
+<<<<<<< HEAD
            "type": "command",
            "command": "node .claude/hooks/{hook-name}.js",
            "timeout": 10000
@@ -181,6 +255,19 @@ Create the hook implementation:
    }
    ```
 
+=======
+            "type": "command",
+            "command": "node .claude/hooks/{hook-name}.js",
+            "timeout": 10000
+          }
+        ]
+      }
+    }
+   ```
+
+   Use `http` or `agent` handlers when the design actually benefits from remote dispatch or multi-turn reasoning; do not default to them for simple shell checks.
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 3. **Test the hook**:
    - Manual trigger with sample input
    - Edge cases: missing fields, malformed input, timeout simulation

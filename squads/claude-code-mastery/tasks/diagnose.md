@@ -6,8 +6,46 @@
 **Orchestrator:** Orion (claude-mastery-chief)
 **Purpose:** Triage Claude Code questions and problems, provide a quick answer, and route to the appropriate specialist agent when domain-specific expertise is needed.
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: diagnose
+atomic_layer: Atom
+executor: claude-mastery-chief
+Domain: Tactical
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- diagnose-report
+- recomendação executável
+output_schema: diagnosis-report-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```
@@ -84,7 +122,11 @@ Apply keyword matching against the 7 specialist domains:
 | mcp | mcp, server, tool search, stdio, sse, http streamable, mcp__, context7, exa, docker gateway, add server | mcp-integrator | Piper |
 | subagents | subagent, agent team, swarm, teammate, worktree, parallel, background agent, spawn, multi-agent, TeammateTool | swarm-orchestrator | Nexus |
 | config | settings, permission, CLAUDE.md, rules, sandbox, managed, enterprise, allow, deny, keybinding, context window, compaction | config-engineer | Sigil |
+<<<<<<< HEAD
 | skills | skill, command, plugin, SKILL.md, slash command, context engineering, spec-driven, .claude/commands, .claude/skills, marketplace | skill-craftsman | Anvil |
+=======
+| skills | skill, command, plugin, SKILL.md, slash command, context engineering, spec-driven, .claude/skills, marketplace | skill-craftsman | Anvil |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 | integration | integrate, repository, project setup, CI/CD, headless, brownfield, monorepo, AIOX, git workflow | project-integrator | Conduit |
 | roadmap | update, changelog, version, roadmap, new feature, what changed, migration, upgrade, adoption | roadmap-sentinel | Vigil |
 

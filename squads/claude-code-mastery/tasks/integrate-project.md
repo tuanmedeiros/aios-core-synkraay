@@ -7,8 +7,46 @@
 **Mode:** Interactive (elicit: true)
 **Quality Standard:** Integration passes smoke test, all config files valid, CLAUDE.md under 200 lines
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: integrate-project
+atomic_layer: Atom
+executor: project-integrator
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- repositório-alvo
+- stack detectada
+- objetivo de integração
+Output:
+- integration-plan
+- cross-domain-handoff
+output_schema: integration-plan-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 This task integrates Claude Code into an existing project by detecting the project's tech stack, generating appropriate configuration, setting up rules, hooks, and MCP servers. Follows Unix philosophy: do one thing well, compose small tools.

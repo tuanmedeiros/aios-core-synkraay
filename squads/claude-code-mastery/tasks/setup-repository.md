@@ -3,11 +3,52 @@
 **Task ID:** CCM-PI-001
 **Version:** 1.0.0
 **Command:** `*setup-repository`
+<<<<<<< HEAD
 **Agent:** Conduit (project-integrator)
 **Purpose:** Set up a new repository with complete Claude Code integration from scratch, creating the .claude/ directory structure, CLAUDE.md, settings, rules, and hooks.
 
 ---
 
+=======
+**Owner:** Conduit (project-integrator)
+**Purpose:** Set up a new repository with complete Claude Code integration from scratch, creating the .claude/ directory structure, CLAUDE.md, settings, rules, and hooks.
+
+## Contrato SINKRA
+
+task: setup-repository
+atomic_layer: Atom
+executor: project-integrator
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- setup-repository-report
+- recomendação executável
+output_schema: setup-report-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```

@@ -18,6 +18,52 @@ workflow:
   entry_agent: claude-mastery-chief
   estimated_duration: "30-60 minutes"
 
+<<<<<<< HEAD
+=======
+thresholds:
+  project_detection_confidence:
+    threshold: 0.7
+  claude_md_quality:
+    threshold: 0.8
+  settings_validity:
+    threshold: 1.0
+  mcp_setup_success:
+    threshold: 0.85
+  final_audit_score:
+    threshold: 0.7
+
+error_handling:
+  on_project_detection_fail: ASK_USER_AND_BLOCK
+  on_config_parse_fail: BLOCK
+  on_hook_validation_fail: EMIT_REVIEW_HANDOFF
+  on_final_audit_fail: BLOCK
+
+state_machine:
+  initial: phase_0
+  terminal: phase_6
+  transitions:
+    - from: phase_0
+      to: [phase_1, phase_2]
+      requires: [project_type, setup_scope]
+      gate: "project_detection_confidence >= 0.7"
+      journey_log: JLOG-CCM-004
+    - from: phase_1
+      to: phase_3
+      requires: [claude_md_path]
+    - from: phase_2
+      to: [phase_4, phase_5]
+      requires: [settings_path]
+    - from: [phase_1, phase_2, phase_3, phase_4, phase_5]
+      to: phase_6
+      requires: [claude_md_path, settings_path]
+      journey_log: JLOG-CCM-005
+  veto_transitions:
+    - from: phase_6
+      condition: "audit_score < 50"
+      action: "fundamental setup issues — revisit phases"
+      journey_log: JLOG-CCM-007
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 # ────────────────────────────────────────────────────────────────────────────
 # PHASES
 # ────────────────────────────────────────────────────────────────────────────
@@ -188,5 +234,10 @@ completion_criteria:
 
 veto_conditions:
   - "No .env or secrets files accessible without deny rules"
+<<<<<<< HEAD
   - "No autoApprove permission mode without explicit user consent"
+=======
+  - "No bypassPermissions mode without explicit user consent and launch-gate acknowledgement"
+  - "No dontAsk mode without an explicit allowlist for routine commands"
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
   - "No MCP configuration that exceeds context budget"

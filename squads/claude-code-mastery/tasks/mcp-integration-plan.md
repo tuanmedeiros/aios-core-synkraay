@@ -1,6 +1,7 @@
 # Task: Plan MCP Server Integration
 
 **Task ID:** CCM-PI-005
+<<<<<<< HEAD
 **Version:** 1.0.0
 **Command:** `*mcp-integration-plan`
 **Agent:** Conduit (project-integrator)
@@ -8,6 +9,48 @@
 
 ---
 
+=======
+**Version:** 1.1.0
+**Command:** `*mcp-integration-plan`
+**Owner:** Conduit (project-integrator)
+**Purpose:** Plan MCP server integration for a project by analyzing needs, mapping capabilities to available servers, estimating context budget impact, and prioritizing by ROI under the current Claude Code MCP ownership and policy model.
+
+## Contrato SINKRA
+
+task: mcp-integration-plan
+atomic_layer: Atom
+executor: mcp-integrator
+Domain: Tactical
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- mcp-integration-plan-report
+- recomendação executável
+output_schema: mcp-integration-report-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```
@@ -59,6 +102,10 @@
 
 - Project directory accessible for analysis
 - Understanding of available MCP ecosystem (official + community)
+<<<<<<< HEAD
+=======
+- Awareness of current MCP config surfaces (`.mcp.json`, settings layers, `managed-mcp.json`) and who owns them
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ---
 
@@ -88,6 +135,7 @@ Produce a needs matrix:
 Match identified needs to available MCP servers:
 
 **Official/Stable MCPs:**
+<<<<<<< HEAD
 | MCP Server | Capabilities | Transport | Best For |
 |------------|-------------|-----------|----------|
 | context7 | Library documentation | stdio | Framework/library docs |
@@ -104,6 +152,24 @@ Match identified needs to available MCP servers:
 | linear/jira | Project management | Varies | Task tracking |
 
 For each need, list candidate MCPs with fit score (1-5).
+=======
+| MCP Server | Capabilities | Transport | Best For | Typical Surface |
+|------------|-------------|-----------|----------|-----------------|
+| context7 | Library documentation | stdio | Framework/library docs | `.mcp.json` or managed |
+| playwright | Browser automation | stdio | Web testing, screenshots | `.mcp.json` or managed |
+| postgres/supabase | Database queries | stdio | DB operations | `.mcp.json` |
+| filesystem | File operations | stdio | Cross-directory access | Managed or user-owned |
+
+**Community MCPs:**
+| MCP Server | Capabilities | Maturity | Best For | Typical Surface |
+|------------|-------------|----------|----------|-----------------|
+| exa | Web search | Stable | Research, finding examples | User-owned or `.mcp.json` |
+| apify | Web scraping | Stable | Data extraction | `.mcp.json` |
+| github | GitHub API | Stable | Issue/PR management | User-owned or managed |
+| linear/jira | Project management | Varies | Task tracking | Managed or user-owned |
+
+For each need, list candidate MCPs with fit score (1-5), preferred config surface, and likely owner (manual, plugin, enterprise).
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ### Phase 3: Estimate Context Budget Impact
 
@@ -131,6 +197,16 @@ Flag any MCP that registers more than 20 tools (context-heavy).
 
 ### Phase 4: Prioritize by ROI
 
+<<<<<<< HEAD
+=======
+Before scoring, enforce the runtime ownership constraints:
+
+1. Prefer manual `.mcp.json` when the team owns the server definition
+2. Treat `managed-mcp.json` as exclusive when present
+3. Manual definitions suppress duplicate plugin servers; between plugins, first-loaded wins
+4. Never place credentials directly in repo-tracked `.mcp.json`
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 Score each candidate MCP:
 
 ```
@@ -154,10 +230,19 @@ Produce the final plan with phased rollout:
 **Phase C (As needed)**: lower ROI MCPs, add when specific need arises
 
 For each MCP in the plan:
+<<<<<<< HEAD
 1. Configuration snippet for settings.json
 2. Required environment variables or credentials
 3. Verification command to test connectivity
 4. Expected context budget impact
+=======
+1. Recommended config surface (`.mcp.json`, `~/.claude/settings.json`, or `managed-mcp.json`)
+2. Ownership model (manual, plugin, enterprise)
+3. Required environment variables or credentials
+4. Verification command to test connectivity
+5. Expected context budget impact
+6. Precedence or policy notes
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ---
 
@@ -183,16 +268,34 @@ For each MCP in the plan:
 | {mcp} | {N} | {N} | {N}% |
 | **Total** | | | {N}% |
 
+<<<<<<< HEAD
+=======
+### Ownership and Policy
+
+| MCP Server | Surface | Owner | Policy Notes |
+|------------|---------|-------|--------------|
+| {mcp} | {.mcp.json|managed-mcp.json|user settings} | {manual|plugin|enterprise} | {notes} |
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ### Rollout Plan
 
 #### Phase A: Immediate (Day 1)
 1. **{mcp_name}**: {reason}
    - ROI: {score}
+<<<<<<< HEAD
+=======
+   - Surface: {surface}
+   - Owner: {owner}
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
    - Config:
      ```json
      { "mcpServers": { "{name}": { ... } } }
      ```
    - Verify: {command}
+<<<<<<< HEAD
+=======
+   - Policy: {policy_note}
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 #### Phase B: Short-term (Week 1)
 1. **{mcp_name}**: {reason}
@@ -214,6 +317,12 @@ For each MCP in the plan:
 - **NEVER** recommend MCPs that require credentials the user has not agreed to provide
 - **NEVER** exceed the stated budget level without explicit user approval
 - **NEVER** recommend experimental or abandoned MCPs without flagging maturity risk
+<<<<<<< HEAD
+=======
+- **NEVER** recommend manual MCP writes when `managed-mcp.json` has exclusive control
+- **NEVER** put secrets directly into repo-tracked `.mcp.json`
+- **NEVER** ignore manual-vs-plugin precedence when duplicate servers are likely
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 - **NEVER** install or configure MCPs in this task -- this task produces a plan only
 
 ---

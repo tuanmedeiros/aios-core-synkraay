@@ -6,8 +6,46 @@
 **Orchestrator:** Orion (claude-mastery-chief)
 **Purpose:** Perform a comprehensive audit of the Claude Code setup in the current project, generating a scored report with actionable recommendations.
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: audit-setup
+atomic_layer: Atom
+executor: claude-mastery-chief
+Domain: Strategic
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- audit-setup-report
+- recomendação executável
+output_schema: audit-report-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```
@@ -76,7 +114,11 @@ Score each item:
 1. Read `.claude/settings.json` and parse as JSON
 2. Validate the schema structure:
    - `permissions` object exists with `allow`, `deny`, and/or `ask` arrays
+<<<<<<< HEAD
    - `permissions.defaultMode` is a valid mode (askAlways, acceptEdits, autoApprove)
+=======
+   - `permissions.defaultMode` is a valid mode (`default`, `acceptEdits`, `dontAsk`, `bypassPermissions`, `plan`; optionally `auto` when feature-gated)
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
    - Permission rules use valid Tool(specifier) syntax
    - No contradicting rules (same pattern in both allow and deny)
 3. Check `.claude/settings.local.json` if present (same validation)

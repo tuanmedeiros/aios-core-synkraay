@@ -1,6 +1,7 @@
 # Task: Optimize Claude Code Workflow
 
 **Task ID:** CCM-PI-003
+<<<<<<< HEAD
 **Version:** 1.0.0
 **Command:** `*optimize-workflow`
 **Agent:** Conduit (project-integrator)
@@ -8,6 +9,48 @@
 
 ---
 
+=======
+**Version:** 1.1.0
+**Command:** `*optimize-workflow`
+**Owner:** Conduit (project-integrator)
+**Purpose:** Optimize Claude Code workflow for maximum productivity by analyzing usage patterns, identifying bottlenecks, and configuring permissions, context, shortcuts, and automation against the current runtime contract.
+
+## Contrato SINKRA
+
+task: optimize-workflow
+atomic_layer: Atom
+executor: swarm-orchestrator
+Domain: Tactical
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- optimize-workflow-report
+- recomendação executável
+output_schema: workflow-optimization-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Workflow bottleneck identified with impact assessment
+- Improvement applied and re-measured
+- Before/after comparison documented
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```
@@ -75,6 +118,13 @@
 
 Examine current configuration to infer usage patterns:
 
+<<<<<<< HEAD
+=======
+0. **Session usage baseline**: run `scripts/session-usage-report.py` for the target project or workspace and ingest:
+   - `summary` for macro signals (errors, branches, task-agent adoption, research profile)
+   - `facets` + `narrative` for dominant workflow patterns
+   - `recommendations.global` + `recommendations.by_project` as the first-pass optimization backlog
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 1. **CLAUDE.md analysis**: what instructions are present, what is missing
 2. **settings.json review**: current allow/deny rules, how restrictive
 3. **Rules inventory**: how many rules, what domains they cover
@@ -102,6 +152,11 @@ Check for common productivity killers:
 4. **Missing automation**: repetitive tasks that could be hooks or skills
 5. **Context rot**: long sessions without compaction strategy
 6. **Redundant instructions**: duplicated guidance between CLAUDE.md and rules
+<<<<<<< HEAD
+=======
+7. **Foreground blocking loops**: `sleep`/polling patterns that should move to `run_in_background` or `Monitor`
+8. **MCP ownership drift**: project servers scattered across settings instead of `.mcp.json` / managed policy
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 For each bottleneck found, estimate impact: HIGH, MEDIUM, LOW.
 
@@ -122,6 +177,7 @@ Design a permission strategy that balances safety and speed:
 
 Present before/after comparison of expected permission prompts.
 
+<<<<<<< HEAD
 ### Phase 4: Set Up Keyboard Shortcuts
 
 Recommend keyboard shortcut configuration for the user's workflow:
@@ -139,28 +195,62 @@ Recommend keyboard shortcut configuration for the user's workflow:
    - Approve/reject: fast review actions
 
 Provide configuration snippets for VS Code keybindings.json if applicable.
+=======
+### Phase 4: Audit Keyboard Shortcuts Capability
+
+Recommend keyboard shortcut configuration only if the runtime capability is actually available:
+
+1. Check whether `~/.claude/keybindings.json` customization is available in this environment.
+2. If available:
+   - Validate format `{ "bindings": [ ... ] }`
+   - Restrict contexts to `Global`, `Chat`, `Autocomplete`, `Confirmation`, `Help`
+   - Avoid reserved terminal/platform shortcuts
+3. If not available:
+   - Do NOT prescribe Claude Code keybinding customization as a fix
+   - Prefer command aliases, hooks, rules, and workflow restructuring instead
+
+Do not substitute VS Code keybindings as if they were Claude Code runtime configuration.
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ### Phase 5: Configure Auto-Memory
 
 Set up persistent memory for cross-session efficiency:
 
 1. **Agent memory**: create `.claude/agent-memory/` structure
+<<<<<<< HEAD
    - MEMORY.md for session-persistent patterns
    - Topic files for domain knowledge
 2. **Memory hygiene rules**:
    - What to save: confirmed patterns, user preferences, debugging solutions
    - What NOT to save: session-specific state, speculative conclusions
    - Size limits: MEMORY.md under 200 lines
+=======
+   - `MEMORY.md` only as a compact index of persistent patterns
+   - Topic files for distilled domain knowledge when justified
+2. **Memory hygiene rules**:
+   - What to save: confirmed patterns, user preferences, debugging solutions
+   - What NOT to save: session-specific state, speculative conclusions, derivable project state
+   - Size limits: `MEMORY.md` under 200 lines and 25 KB
+   - In assistant/KAIROS flows, new entries go to append-only daily logs before distillation
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 3. **Memory templates**: pre-populate with project conventions if detectable
 
 ### Phase 6: Generate Optimization Plan
 
 Produce a prioritized optimization plan:
 
+<<<<<<< HEAD
 1. Sort all recommendations by impact (HIGH first)
 2. Group by effort: Quick Wins (< 5 min), Medium (5-30 min), Investment (30+ min)
 3. For each recommendation, provide exact implementation steps
 4. Estimate total time saved per week after optimization
+=======
+1. Start from `session-usage-report.recommendations` when available, then refine with local config findings
+2. Sort all recommendations by impact (HIGH first)
+3. Group by effort: Quick Wins (< 5 min), Medium (5-30 min), Investment (30+ min)
+4. For each recommendation, provide exact implementation steps
+5. Estimate total time saved per week after optimization
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ---
 
@@ -203,6 +293,15 @@ Produce a prioritized optimization plan:
 **Before:** {N} expected prompts per session
 **After:** {M} expected prompts per session
 **Reduction:** {X}%
+<<<<<<< HEAD
+=======
+
+### Session Report Inputs Used
+
+- Summary signals: {session_report_summary_keys}
+- Facets used: {session_report_facet_keys}
+- Imported recommendations: {session_report_recommendation_ids}
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ```
 
 ---

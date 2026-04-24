@@ -3,11 +3,52 @@
 **Task ID:** CCM-PI-002
 **Version:** 1.0.0
 **Command:** `*audit-integration`
+<<<<<<< HEAD
 **Agent:** Conduit (project-integrator)
 **Purpose:** Audit an existing Claude Code integration in a project, checking completeness, consistency, health, and generating an actionable score with recommendations.
 
 ---
 
+=======
+**Owner:** Conduit (project-integrator)
+**Purpose:** Audit an existing Claude Code integration in a project, checking completeness, consistency, health, and generating an actionable score with recommendations.
+
+## Contrato SINKRA
+
+task: audit-integration
+atomic_layer: Atom
+executor: project-integrator
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- audit-integration-report
+- recomendação executável
+output_schema: integration-report-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```
@@ -81,7 +122,11 @@ Scan the `.claude/` directory and check for expected components:
 | settings.local.json | Recommended | `.claude/settings.local.json` | 5 |
 | rules/ directory | Recommended | `.claude/rules/` | 15 |
 | At least 1 rule file | Recommended | `.claude/rules/*.md` | 10 |
+<<<<<<< HEAD
 | commands/ directory | Optional | `.claude/commands/` | 5 |
+=======
+| skills/ directory | Optional | `.claude/skills/` | 5 |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 | skills/ directory | Optional | `.claude/skills/` | 5 |
 
 For each component, record: present/missing, file size, last modified date.

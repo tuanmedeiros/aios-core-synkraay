@@ -1,6 +1,7 @@
 # Task: Design Permission Strategy
 
 **Task ID:** CCM-CONFIG-005
+<<<<<<< HEAD
 **Version:** 1.0.0
 **Command:** `*permission-strategy`
 **Orchestrator:** Sigil (config-engineer)
@@ -8,6 +9,48 @@
 
 ---
 
+=======
+**Version:** 1.1.0
+**Command:** `*permission-strategy`
+**Orchestrator:** Sigil (config-engineer)
+**Purpose:** Design a comprehensive permission strategy for a project by assessing security needs, selecting the appropriate permission mode, and engineering precise allow/ask/deny rules using Claude Code's `Tool(specifier)` syntax and current runtime permission pipeline.
+
+## Contrato SINKRA
+
+task: permission-strategy
+atomic_layer: Atom
+executor: config-engineer
+Domain: Tactical
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- permission-strategy-report
+- recomendação executável
+output_schema: permission-matrix-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```
@@ -77,15 +120,25 @@ Select the base mode based on assessment:
 
 | Mode | Use When | Friction Level | Security Level |
 |------|----------|----------------|----------------|
+<<<<<<< HEAD
 | askAlways | Regulated environments, onboarding, high sensitivity | High | Maximum |
 | acceptEdits | Standard development, trusted codebase, medium sensitivity | Medium | Balanced |
 | autoApprove | Solo developer, low sensitivity, personal projects | Low | Minimum |
 | plan | Complex workflows requiring upfront approval (managed only) | Medium | High |
+=======
+| default | Regulated environments, onboarding, high sensitivity | High | Maximum |
+| acceptEdits | Standard development, trusted codebase, medium sensitivity | Medium | Balanced |
+| dontAsk | Headless/fail-closed sessions with explicit allowlists | Medium | High |
+| bypassPermissions | Only inside isolated, no-internet sandboxes | Low | Minimum |
+| plan | Complex workflows requiring upfront review | Medium | High |
+| auto | Only when classifier mode is explicitly enabled and validated | Low-Medium | Conditional |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 **Decision tree:**
 
 ```
 Is this regulated (SOC2, HIPAA)?
+<<<<<<< HEAD
   YES -> askAlways + strict deny rules
   NO  -> Is it a team project?
     YES -> acceptEdits + comprehensive deny/allow
@@ -95,12 +148,33 @@ Is this regulated (SOC2, HIPAA)?
 ```
 
 Present recommendation with rationale. Allow user override.
+=======
+  YES -> default + strict deny rules
+  NO  -> Is it a team project?
+    YES -> acceptEdits + comprehensive deny/allow
+    NO  -> Is it high sensitivity?
+      YES -> default + strict deny rules
+      NO  -> acceptEdits + basic deny rules
+
+Need zero-prompt execution?
+  YES -> dontAsk + explicit allowlist
+  NO  -> bypassPermissions only if fully sandboxed, no internet access, and launch-gated
+```
+
+Present recommendation with rationale. Allow user override.
+If the session is remote, constrain recommendations to `default`, `acceptEdits`, or `plan`.
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 ### Phase 3: Configure Allow Rules
 
 Build the allow list using `Tool(specifier)` syntax:
 
+<<<<<<< HEAD
 **Evaluation order reminder:** deny -> ask -> allow (first match wins).
+=======
+**Runtime pipeline reminder:** safety -> headless -> bypass -> denylist -> allowlist -> classifier (`auto`, when enabled) -> prompt.
+`ask` rules only matter when the selected mode can actually prompt. In `dontAsk`, any remaining prompt becomes deny.
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 
 **Common allow patterns by tool:**
 
@@ -178,6 +252,15 @@ Build the deny list (evaluated first, highest priority):
 }
 ```
 
+<<<<<<< HEAD
+=======
+Mode caveats:
+- `default` and `acceptEdits` can surface `ask` prompts.
+- `dontAsk` converts `ask` matches into deny at the final stage.
+- `bypassPermissions` skips the prompt path but still does not override safety checks.
+- `plan` is for planning/exploration, not normal write execution.
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ### Phase 5: Set MCP Tool Permissions
 
 1. For each configured MCP server, add appropriate permission rules:
@@ -230,7 +313,11 @@ Show how specific operations will be handled:
 |-----------|---------|----------|--------|
 | `cat .env` | `Read(./.env)` | deny | BLOCKED |
 | `npm run test` | `Bash(npm run *)` | allow | AUTO-APPROVED |
+<<<<<<< HEAD
 | `git push origin main` | `Bash(git push *)` | ask | PROMPTS USER |
+=======
+| `git push origin main` | `Bash(git push *)` | ask | PROMPTS USER in `default`/`acceptEdits`; DENIED in `dontAsk` |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 | `edit src/app.ts` | `Edit(src/**)` | allow | AUTO-APPROVED |
 
 ### Security Coverage
@@ -250,6 +337,11 @@ Show how specific operations will be handled:
 - **NEVER** design a strategy without deny rules for .env and secrets. These are non-negotiable security baselines.
 - **NEVER** add destructive bash commands (rm -rf, format, mkfs) to the allow list.
 - **NEVER** recommend `bypassPermissions` mode for team or enterprise environments.
+<<<<<<< HEAD
+=======
+- **NEVER** recommend `bypassPermissions` without explicitly calling out the launch gate (`--dangerously-skip-permissions`).
+- **NEVER** recommend `dontAsk` without an explicit allowlist for routine commands; fail-closed without coverage is operational sabotage.
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 - **NEVER** allow `Bash(curl * | bash)` or `Bash(wget * | bash)` patterns -- pipe-to-shell is a known attack vector.
 - **NEVER** put the same pattern in both deny and allow without explaining that deny always wins.
 
@@ -263,4 +355,8 @@ Show how specific operations will be handled:
 - [ ] Allow rules enable detected development workflows
 - [ ] Ask rules protect modification of critical config files
 - [ ] MCP tool permissions set for all configured servers
+<<<<<<< HEAD
 - [ ] Evaluation examples show how common operations are handled
+=======
+- [ ] Evaluation examples show how common operations are handled under the selected mode
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)

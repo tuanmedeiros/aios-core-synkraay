@@ -7,8 +7,46 @@
 **Mode:** Interactive (elicit: true)
 **Quality Standard:** Under 200 lines, all sections actionable, no filler content, passes self-review
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: claude-md-engineer
+atomic_layer: Atom
+executor: config-engineer
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- claude-md-engineer-report
+- recomendação executável
+output_schema: claude-md-file
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 CLAUDE.md is the most important file for Claude Code productivity. A well-engineered CLAUDE.md teaches Claude how to work in the project with minimal tokens. This task creates one from scratch or rewrites an existing one using context engineering principles.

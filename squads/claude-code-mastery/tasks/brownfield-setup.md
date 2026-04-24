@@ -7,8 +7,46 @@
 **Mode:** Interactive (elicit: true)
 **Quality Standard:** No existing workflow disrupted, deny rules protect critical paths, conventions documented
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: brownfield-setup
+atomic_layer: Atom
+executor: project-integrator
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- brownfield-setup-report
+- recomendação executável
+output_schema: brownfield-report-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Existing setup detected and documented
+- Delta report generated comparing before/after
+- Setup score improved post-integration
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 This task differs from integrate-project in that it focuses on **discovering and respecting existing conventions** rather than establishing new ones. The brownfield approach prioritizes safety: protect what exists, teach Claude the project's rules, and integrate without disrupting established workflows.

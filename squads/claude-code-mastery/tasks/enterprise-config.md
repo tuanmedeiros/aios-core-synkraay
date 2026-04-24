@@ -6,8 +6,46 @@
 **Orchestrator:** Sigil (config-engineer)
 **Purpose:** Generate and deploy enterprise-grade Claude Code configuration using managed-settings.json for organizational policy enforcement, MDM integration, compliance rules, and standardized MCP server deployment across teams.
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: enterprise-config
+atomic_layer: Atom
+executor: config-engineer
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- enterprise-config-report
+- recomendação executável
+output_schema: enterprise-config-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Enterprise settings applied to target org
+- SSO/audit/compliance rules configured
+- Deployment method documented per platform
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```
@@ -206,7 +244,11 @@ For each compliance framework, add specific rules:
       "Read(./patient-data/**)", "Read(./phi/**)",
       "WebFetch"
     ],
+<<<<<<< HEAD
     "defaultMode": "askAlways"
+=======
+    "defaultMode": "default"
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
   },
   "allowManagedPermissionRulesOnly": true,
   "allowManagedMcpServersOnly": true
@@ -236,7 +278,11 @@ For each compliance framework, add specific rules:
       "Read(./payment/**)", "Read(./**/*card*)",
       "Read(./**/*billing*)"
     ],
+<<<<<<< HEAD
     "defaultMode": "askAlways"
+=======
+    "defaultMode": "default"
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
   },
   "disableBypassPermissionsMode": "disable"
 }

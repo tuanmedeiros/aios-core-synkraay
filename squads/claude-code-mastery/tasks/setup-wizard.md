@@ -6,8 +6,46 @@
 **Orchestrator:** Orion (claude-mastery-chief)
 **Purpose:** Interactive wizard to set up Claude Code for a new or existing project, generating all required configuration files tailored to the detected project type.
 
+<<<<<<< HEAD
 ---
 
+=======
+## Contrato SINKRA
+
+task: setup-wizard
+atomic_layer: Atom
+executor: project-integrator
+Domain: Operational
+accountability_token: TK-CCM-ACC-001
+Input:
+- contexto do projeto
+- objetivo da task
+- artefatos de referência
+Output:
+- setup-wizard-report
+- recomendação executável
+output_schema: setup-report-yaml
+Pre-Conditions:
+- Contexto do projeto disponível e legível
+- Artefatos de referência acessíveis ao executor
+- Critério de sucesso entendido antes da execução
+Post-Conditions:
+- Output publicado em formato auditável
+- Próximo passo explícito ou handoff emitido
+- Decisões relevantes registradas no artefato final
+Performance:
+- Execução em uma sessão sem falha silenciosa
+- Thresholds e veto conditions respeitados
+- Resultado acionável para o próximo executor
+Completion Criteria:
+- Executor único definido
+- Inputs e outputs explícitos
+- Critério final verificável no artefato entregue
+
+---
+
+
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 ## Overview
 
 ```
@@ -80,8 +118,13 @@ Analyze the project to determine its type:
 | fullstack | next.config, app/ + api/ | acceptEdits |
 | frontend | vite.config, src/components | acceptEdits |
 | api | server/, express/fastify dep | acceptEdits |
+<<<<<<< HEAD
 | library | main/module in package.json | askAlways |
 | cli | bin/ field in package.json | askAlways |
+=======
+| library | main/module in package.json | default |
+| cli | bin/ field in package.json | default |
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 | python | pyproject.toml, src/ | acceptEdits |
 | aiox | .aiox-core/ directory | acceptEdits |
 
@@ -108,7 +151,11 @@ Analyze the project to determine its type:
    - Monorepo: allow Read/Edit across all packages
    - Frontend: allow Bash(npm run dev), Bash(npm run build)
    - API: deny external network calls by default
+<<<<<<< HEAD
    - Library: stricter permissions (askAlways)
+=======
+   - Library: stricter permissions (default)
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 3. If AIOX project: add L1-L4 boundary protection deny rules
 
 ### Phase 4: Set Up .claude/rules/
@@ -219,7 +266,11 @@ Analyze the project to determine its type:
 
 - **NEVER** overwrite existing .claude/ configuration without explicit user confirmation. Always ask first.
 - **NEVER** include real API keys, tokens, or secrets in generated configuration files. Use placeholder values with comments.
+<<<<<<< HEAD
 - **NEVER** set `bypassPermissions` as the default mode. Start with `acceptEdits` or `askAlways`.
+=======
+- **NEVER** set `bypassPermissions` as the default mode. Start with `acceptEdits` or `default`.
+>>>>>>> b15366f6 (chore: update gitignore and track remaining files)
 - **NEVER** create a CLAUDE.md over 200 lines. Split into @imports and .claude/rules/ if content exceeds the limit.
 - **NEVER** skip the project type detection confirmation step, even in express mode.
 
