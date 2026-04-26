@@ -57,20 +57,48 @@ AGENT ?=
 sync-agent:
 	$(SYNC_SCRIPT) agent $(AGENT) --squad $(SQUAD) $(FLAGS)
 
+
+# ──────────────────────────────────────────────
+# Command Sync
+# ──────────────────────────────────────────────
+COMMAND_SYNC_SCRIPT := python3 squads/squad-creator-v1/scripts/sync-ide-command.py
+
+# Sync Commands from a squad
+#   make sync-commands SQUAD=squad-creator-pro IDE=gemini
+sync-commands:
+	@echo "--- Syncing commands for $(SQUAD) ---"
+	$(COMMAND_SYNC_SCRIPT) squad $(SQUAD) $(FLAGS)
+
+# Sync Commands from all squads
+#   make sync-commands-all IDE=gemini
+sync-commands-all:
+	@for squad in $(SQUADS); do \
+		echo ""; \
+		echo "--- Syncing commands for $$squad ---"; \
+		$(COMMAND_SYNC_SCRIPT) squad $$squad $(FLAGS); \
+	done
+
 help:
 	@echo ""
 	@echo "Usage:"
-	@echo "  make sync              SQUAD=<name>           Sync one squad (default: squad-creator-v2)"
-	@echo "  make sync-dry          SQUAD=<name>           Dry-run (preview only)"
-	@echo "  make sync-all                                 Sync all squads"
-	@echo "  make sync-<name>                              Shorthand: make sync-hormozi"
-	@echo "  make sync-agent        AGENT=<agent> SQUAD=<squad>  Sync one agent"
+	@echo "  --- Agent Skills ---"
+	@echo "  make sync              SQUAD=<name>           Sync agent skill for one squad"
+	@echo "  make sync-all                                 Sync agent skills for all squads"
+	@echo "  make sync-agent        AGENT=<agent> SQUAD=<squad>  Sync a single agent skill"
+	@echo ""
+	@echo "  --- Global Commands ---"
+	@echo "  make sync-commands     SQUAD=<name>           Sync tasks/workflows from one squad"
+	@echo "  make sync-commands-all                        Sync tasks/workflows from all squads"
+	@echo ""
+	@echo "  --- Utilities ---"
+	@echo "  make sync-dry          SQUAD=<name>           Dry-run any sync (preview only)"
+	@echo "  make sync-<name>                              Shorthand: make sync SQUAD=<name>"
 	@echo ""
 	@echo "Flags (append to any target):"
 	@echo "  FORCE=1                Overwrite existing files"
 	@echo "  DRY=1                  Preview without writing"
 	@echo "  VERBOSE=1              Show detailed output"
-	@echo "  IDE=claude             Target specific IDE"
+	@echo "  IDE=gemini             Target specific IDE (claude, cursor, gemini, etc.)"
 	@echo ""
 	@echo "Available squads:"
 	@echo "  $(SQUADS)" | tr ' ' '\n' | sed 's/^/    /'

@@ -297,6 +297,18 @@ def get_destination_path(
     elif ide == "windsurf":
         return project_root / ".windsurf" / "commands" / pack_alias / filename
 
+    elif ide == "gemini":
+        type_dir_map = {
+            "agent": "agents",
+            "task": "tasks",
+            "workflow": "workflows",
+            "template": "templates",
+            "checklist": "checklists",
+            "data": "data"
+        }
+        dir_name = type_dir_map.get(component_type, component_type + "s")
+        return project_root / ".gemini" / "commands" / pack_alias / dir_name / filename
+
     else:
         raise ValueError(f"Unknown IDE: {ide}")
 
@@ -516,7 +528,7 @@ Examples:
                         help="Preview without creating files")
     parser.add_argument("--force", "-f", action="store_true",
                         help="Overwrite existing files")
-    parser.add_argument("--ide", "-i", choices=["claude", "cursor", "windsurf"],
+    parser.add_argument("--ide", "-i", choices=["claude", "cursor", "windsurf", "gemini"],
                         help="Target specific IDE")
     parser.add_argument("--verbose", "-v", action="store_true",
                         help="Show detailed output")
