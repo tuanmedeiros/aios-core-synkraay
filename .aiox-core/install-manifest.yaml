@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.8
-generated_at: "2026-05-06T19:40:38.959Z"
+generated_at: "2026-05-06T23:23:59.783Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1103
 files:
@@ -181,9 +181,9 @@ files:
     type: cli
     size: 5907
   - path: core-config.yaml
-    hash: sha256:08471a9bf736776c15e72695f373fc3a203caf139412d3ec5c78a977796c1208
+    hash: sha256:9ddfc19a58ca25ca628925ec2ba2afab720c89d80817dfc2e0b03c3fcfcfecc2
     type: config
-    size: 11032
+    size: 11368
   - path: core/code-intel/code-intel-client.js
     hash: sha256:6c9a08a37775acf90397aa079a4ad2c5edcc47f2cfd592b26ae9f3d154d1deb8
     type: core
@@ -1057,9 +1057,9 @@ files:
     type: core
     size: 1013
   - path: core/synapse/context/context-tracker.js
-    hash: sha256:48e94db7b1778dedecc8eae829139579ad7778ff47668597ebe766610696553f
+    hash: sha256:5a54a15fbbbd4b6095e7e78297cb87e4a123a7c1d714a7c7916272ef6fd680f1
     type: core
-    size: 5839
+    size: 9144
   - path: core/synapse/diagnostics/collectors/consistency-collector.js
     hash: sha256:65f4255f87c9900400649dc8b9aedaac4851b5939d93e127778bd93cee99db12
     type: core
