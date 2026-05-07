@@ -43,6 +43,8 @@ function mockRegistryResponse(payload, statusCode = 200) {
 }
 
 const PRO_PACKAGE_CANONICAL = '@aiox-squads/pro';
+const CORE_PACKAGE_CANONICAL = '@aiox-squads/core';
+const SCAFFOLDER_EXPORT_CANONICAL = `${CORE_PACKAGE_CANONICAL}/installer/pro-scaffolder`;
 
 function samePath(actual, expected) {
   return path.normalize(String(actual)) === path.normalize(String(expected));
@@ -112,7 +114,7 @@ describe('pro-updater', () => {
           return JSON.stringify({
             name: 'my-app',
             devDependencies: {
-              '@synkra/aiox-core': '^5.5.0',
+              [CORE_PACKAGE_CANONICAL]: '^5.5.0',
             },
           });
         }
@@ -134,14 +136,14 @@ describe('pro-updater', () => {
           return JSON.stringify({
             name: 'workspace-app',
             dependencies: {
-              '@synkra/aiox-core': '^5.5.0',
+              [CORE_PACKAGE_CANONICAL]: '^5.5.0',
             },
           });
         }
         throw new Error(`Unexpected read: ${targetPath}`);
       });
 
-      expect(detectCorePackageName(projectRoot)).toBe('@synkra/aiox-core');
+      expect(detectCorePackageName(projectRoot)).toBe(CORE_PACKAGE_CANONICAL);
     });
   });
 
@@ -193,7 +195,7 @@ describe('pro-updater', () => {
           return JSON.stringify({
             name: 'workspace-app',
             dependencies: {
-              '@synkra/aiox-core': '^5.5.0',
+              [CORE_PACKAGE_CANONICAL]: '^5.5.0',
             },
           });
         }
@@ -214,7 +216,7 @@ describe('pro-updater', () => {
         expect.objectContaining({
           action: 'core_update',
           status: 'dry_run',
-          command: 'npm install @synkra/aiox-core@latest',
+          command: `npm install ${CORE_PACKAGE_CANONICAL}@latest`,
         }),
       ]));
     });
@@ -241,7 +243,7 @@ describe('pro-updater', () => {
       mockRegistryResponse({
         version: '0.4.0',
         peerDependencies: {
-          '@synkra/aiox-core': '>=6.0.0',
+          [CORE_PACKAGE_CANONICAL]: '>=6.0.0',
         },
       });
 
@@ -262,7 +264,7 @@ describe('pro-updater', () => {
     it('should fail when the package update succeeds but re-scaffolding fails', async () => {
       const projectRoot = '/tmp/aiox-project';
       const versionJsonPath = projectFile(projectRoot, '.aiox-core', 'version.json');
-      const scaffolderPath = 'aiox-core/installer/pro-scaffolder';
+      const scaffolderPath = SCAFFOLDER_EXPORT_CANONICAL;
 
       fs.statSync.mockReturnValue({ isDirectory: () => true });
       fs.existsSync.mockImplementation((targetPath) => (
@@ -295,7 +297,7 @@ describe('pro-updater', () => {
           skippedFiles: [],
           warnings: [],
         }),
-      }));
+      }), { virtual: true });
 
       const result = await updatePro(projectRoot, {});
 

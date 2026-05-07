@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-05-07T00:08:59.095Z'
+  lastUpdated: '2026-05-07T07:53:00.000Z'
   entityCount: 746
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -7214,8 +7214,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:cb3abc56f9c001a80f18766d949b0d8916eb91d4644c0ee2d642ac62a03a73d3
-      lastVerified: '2026-03-11T00:48:55.861Z'
+      checksum: sha256:ca880db21647162725bbc5bcd4a01613ad2cc4911aa829a9b9242a05bb62283a
+      lastVerified: '2026-05-06T22:00:40.770Z'
     greeting-builder:
       path: .aiox-core/development/scripts/greeting-builder.js
       layer: L2
@@ -7233,6 +7233,7 @@ entities:
         - workflow-navigator
         - greeting-preference-manager
         - project-status-loader
+        - permissions
         - config-resolver
         - validate-user-profile
         - session-state
@@ -7245,8 +7246,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:6f7aad3bd400c77463af5665cec45e0256350671a113d2fcad83a6adfa5dbbac
-      lastVerified: '2026-03-11T00:48:55.861Z'
+      checksum: sha256:dd0c50dc690a44fdddd9cf8adde609ea0ef2aa6916a78b9fcc971195ddff5656
+      lastVerified: '2026-05-06T20:38:53.200Z'
     greeting-config-cli:
       path: .aiox-core/development/scripts/greeting-config-cli.js
       layer: L2
@@ -7737,10 +7738,12 @@ entities:
         - context-loader
         - project-status-loader
         - git-config-detector
+        - permissions
         - greeting-preference-manager
         - context-detector
         - workflow-navigator
         - atomic-write
+        - pro-detector
       externalDeps: []
       plannedDeps:
         - permissions
@@ -7750,8 +7753,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:de2d4a10b01da32d31c1f810feed429804da6869bb958d5a5ebe626589d0a2f6
-      lastVerified: '2026-03-11T00:48:55.864Z'
+      checksum: sha256:6910a7f6b0cef65a0886e0b29bbcb0ee401ca4fb444eb255a7a368cb67327aa7
+      lastVerified: '2026-05-06T23:18:07.594Z'
     usage-tracker:
       path: .aiox-core/development/scripts/usage-tracker.js
       layer: L2
@@ -12792,8 +12795,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:4fbdf590f1685d835fa5bef8e2307708ab1eeb49f5ea177d4f79c1629e35670a
-      lastVerified: '2026-05-07T00:08:58.904Z'
+      checksum: sha256:8246c4c3997ddff6fcf51555fb840bbd4fcac3c294e5ed5fa2c8585a42d91029
+      lastVerified: '2026-05-07T07:53:00.000Z'
   agents:
     aiox-master:
       path: .aiox-core/development/agents/aiox-master.md
