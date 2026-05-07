@@ -110,6 +110,14 @@ try {
   brownfieldUpgrader = null;
 }
 
+let ensureProjectNodeModulesLink;
+try {
+  ({ ensureProjectNodeModulesLink } = require('@aiox-squads/core/installer/aiox-core-installer'));
+} catch (_err) {
+  // Module may not be available in older installations
+  ensureProjectNodeModulesLink = null;
+}
+
 async function main() {
   console.clear();
 
@@ -517,6 +525,24 @@ async function main() {
       'AIOX Core files installed ' +
         chalk.gray('(11 agents, 68 tasks, 23 templates)')
     );
+
+    // Ensure root squad scripts can resolve framework dependencies.
+    if (ensureProjectNodeModulesLink) {
+      const linkResult = await ensureProjectNodeModulesLink({
+        targetDir: context.projectRoot,
+        targetAioxCore: targetCoreDir,
+      });
+      if (linkResult.linked) {
+        console.log(chalk.green('✓') + ' node_modules linked to .aiox-core/node_modules');
+      } else if (!linkResult.success) {
+        console.log(
+          chalk.yellow('⚠') +
+            ' Could not create node_modules symlink: ' +
+            linkResult.reason +
+            (linkResult.error ? ` (${linkResult.error})` : '')
+        );
+      }
+    }
 
     // Create installed manifest for brownfield upgrades (Story 6.18)
     if (brownfieldUpgrader) {
