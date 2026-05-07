@@ -34,6 +34,8 @@ const REQUIRED_PATHS = [
   // Hooks (critical - these were missing in v4.0.0)
   '.claude/hooks/synapse-engine.cjs',
   '.claude/hooks/precompact-session-digest.cjs',
+  // Claude Code project settings
+  '.claude/settings.json',
   // Rules
   '.claude/rules/',
   // CLI binaries
@@ -64,6 +66,7 @@ const EXCLUDED_PATHS = [
  */
 const REQUIRED_FILES_ENTRIES = [
   '.claude/hooks/',
+  '.claude/settings.json',
   '.claude/rules/',
   '.aiox-core/',
   'bin/',
@@ -211,7 +214,12 @@ function validatePackageJson(pkg) {
   const filesArray = pkg.files || [];
 
   for (const entry of REQUIRED_FILES_ENTRIES) {
-    const found = filesArray.some((f) => f === entry || f.startsWith(entry));
+    const found = filesArray.some((f) => {
+      if (entry.endsWith('/')) {
+        return f === entry || f.startsWith(entry);
+      }
+      return f === entry;
+    });
     check(
       `files[] includes "${entry}"`,
       found,
