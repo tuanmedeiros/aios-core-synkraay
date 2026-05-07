@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-05-07T13:24:28.327Z'
+  lastUpdated: '2026-05-07T14:31:05.482Z'
   entityCount: 746
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -8732,7 +8732,8 @@ entities:
         - injector
       usedBy: []
       dependencies:
-        - gotchas-memory
+        - memory-query
+        - session-memory
       externalDeps: []
       plannedDeps:
         - memory-query
@@ -8742,8 +8743,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:a183255eb4831f701086f23f371f94a9ce10c46ea18c8369ec0fd756777f042f
-      lastVerified: '2026-03-11T00:48:55.878Z'
+      checksum: sha256:7654f6e6c3d555f3963369e71edf84b15c0fdec53bd161800b71782f78275244
+      lastVerified: '2026-05-07T14:31:05.474Z'
     parallel-executor:
       path: .aiox-core/core/execution/parallel-executor.js
       layer: L1
@@ -8854,7 +8855,8 @@ entities:
         - dispatcher
       usedBy: []
       dependencies:
-        - gotchas-memory
+        - ai-providers
+        - memory-query
       externalDeps: []
       plannedDeps:
         - ai-providers
@@ -8864,8 +8866,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:7affbc04de9be2bc53427670009a885f0b35e1cc183f82c2e044abf9611344b6
-      lastVerified: '2026-03-11T00:48:55.878Z'
+      checksum: sha256:a69a03b714a39c8daf59ce2bcfb03cc6168f25e1fab07a754bd0ac7c3a91109b
+      lastVerified: '2026-05-07T14:31:05.478Z'
     wave-executor:
       path: .aiox-core/core/execution/wave-executor.js
       layer: L1
@@ -9024,8 +9026,7 @@ entities:
         - ideation
         - engine
       usedBy: []
-      dependencies:
-        - gotchas-memory
+      dependencies: []
       externalDeps: []
       plannedDeps: []
       lifecycle: experimental
@@ -9033,8 +9034,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:d9108fa47ed7a9131703739befb214b97d5b8e546faf1b49d8ae9d083756c589
-      lastVerified: '2026-03-11T00:48:55.879Z'
+      checksum: sha256:a154a0ce92f6b39b358529a030025b9709e0e4e2b85f6af02bd474e15c1aeb83
+      lastVerified: '2026-05-07T14:31:05.479Z'
     circuit-breaker:
       path: .aiox-core/core/ids/circuit-breaker.js
       layer: L1
@@ -9337,9 +9338,6 @@ entities:
         - gotcha
         - gotchas
         - build-orchestrator
-        - context-injector
-        - subagent-dispatcher
-        - ideation-engine
         - active-modules.verify
         - dev
       dependencies: []
