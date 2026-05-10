@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.1.17
-generated_at: "2026-05-09T09:07:47.281Z"
+generated_at: "2026-05-10T01:14:38.554Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1128
 files:
@@ -3093,17 +3093,17 @@ files:
     type: script
     size: 22355
   - path: infrastructure/scripts/codex-skills-sync/index.js
-    hash: sha256:caf8e4f6fad8d5b5c123bf47561a632bdb2cfacb5f3a80265de81ba0dea3f6b9
+    hash: sha256:2dc8637ba0095921e3cb5e99791dc05da61a12e375407b05f199696bcce7ea61
     type: script
-    size: 5533
+    size: 5642
   - path: infrastructure/scripts/codex-skills-sync/README.md
     hash: sha256:2e4366ccc31b617a9be8a8b19c0379e1fd3ae64c4d5cfbb4d233860f9db0f949
     type: script
     size: 4072
   - path: infrastructure/scripts/codex-skills-sync/validate.js
-    hash: sha256:5b8cb91ddcfda2b6b66328c12129e71665e4e1cb6f13b1792746e9d761d1ebcf
+    hash: sha256:6c8f98f49e433fc3aa648034457d5273a2ca667b8c7e492157a89ed6d0582c96
     type: script
-    size: 12185
+    size: 17947
   - path: infrastructure/scripts/collect-tool-usage.js
     hash: sha256:8a739b79182dc41e28b7e02aeb9ec1dde5ec49f3ca534399acc59711b3b92bbf
     type: script
