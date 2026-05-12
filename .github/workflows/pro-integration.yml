@@ -79,8 +79,20 @@ jobs:
         if: steps.token-check.outputs.skip != 'true'
         uses: actions/checkout@v6
         with:
-          token: ${{ secrets.PRO_SUBMODULE_TOKEN }}
-          submodules: 'recursive'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: false
+
+      - name: Initialize Pro submodule
+        if: steps.token-check.outputs.skip != 'true'
+        env:
+          PRO_SUBMODULE_TOKEN: ${{ secrets.PRO_SUBMODULE_TOKEN }}
+        run: |
+          echo "::add-mask::$PRO_SUBMODULE_TOKEN"
+          export GIT_CONFIG_COUNT=1
+          export GIT_CONFIG_KEY_0="url.https://x-access-token:${PRO_SUBMODULE_TOKEN}@github.com/SynkraAI/.insteadOf"
+          export GIT_CONFIG_VALUE_0="https://github.com/SynkraAI/"
+          git submodule sync --recursive
+          git submodule update --init --recursive
 
       - name: Setup Node.js
         if: steps.token-check.outputs.skip != 'true'
