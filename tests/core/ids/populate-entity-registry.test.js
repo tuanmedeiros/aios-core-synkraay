@@ -6,6 +6,8 @@ const {
   extractEntityId,
   extractKeywords,
   extractPurpose,
+  looksLikePlaceholder,
+  syncSelfRegistryEntry,
   detectDependencies,
   extractYamlDependencies,
   extractMarkdownCrossReferences,
@@ -222,6 +224,156 @@ describe('populate-entity-registry (AC: 3, 4, 12)', () => {
       // No `---` delimiters → not frontmatter → falls through to `# Title`
       expect(purpose).toBe('Title');
       expect(purpose).not.toContain('This should not');
+    });
+
+    // Regression: unfilled template placeholders / JS literals should be
+    // skipped through the priority chain, not adopted as the purpose.
+    it('skips placeholder `{Brief description}` in frontmatter and falls through to header', () => {
+      const content = '---\ndescription: "{Brief description of what this task does}"\n---\n\n# Real Task Title';
+      const purpose = extractPurpose(content, '/test.md');
+      expect(purpose).toBe('Real Task Title');
+    });
+
+    it('skips `{{HANDLEBAR}}` in Purpose section and falls through to header', () => {
+      const content = '# Real Title\n\n## Purpose\n\n{{TASK_TITLE}}';
+      const purpose = extractPurpose(content, '/test.md');
+      expect(purpose).toBe('Real Title');
+    });
+
+    it('skips JS template literal `${var}` placeholders and falls through to fallback', () => {
+      const content = '# ${name} Activator';
+      const purpose = extractPurpose(content, '/some/path/test.md');
+      expect(purpose).toContain('test.md');
+    });
+
+    it('falls through ALL placeholders to file-path fallback when nothing real exists', () => {
+      const content = '---\ndescription: "{One-line description}"\n---\n\n## Purpose\n\n{{var}}\n\n# *${taskName}';
+      const purpose = extractPurpose(content, '/some/path/orphan.md');
+      expect(purpose).toContain('orphan.md');
+    });
+  });
+
+  describe('looksLikePlaceholder()', () => {
+    it('detects single `{Title}` placeholder', () => {
+      expect(looksLikePlaceholder('{Brief description of what this task does}')).toBe(true);
+      expect(looksLikePlaceholder('{One-line description}')).toBe(true);
+    });
+
+    it('detects `{{handlebars}}` placeholders', () => {
+      expect(looksLikePlaceholder('{{TASK_TITLE}}')).toBe(true);
+      expect(looksLikePlaceholder('{{var}}')).toBe(true);
+    });
+
+    it('detects `${...}` JS template literals', () => {
+      expect(looksLikePlaceholder('${context.componentName}')).toBe(true);
+      expect(looksLikePlaceholder('*${taskName.replace(/-/g, "-")}')).toBe(true);
+    });
+
+    it('detects dominant interpolation (>30% of string)', () => {
+      expect(
+        looksLikePlaceholder(
+          '${icon} @${id} — ${name}${archetype !== \'Specialist\' ? ` (${archetype})` : \'\'} | ${title}',
+        ),
+      ).toBe(true);
+    });
+
+    it('does NOT flag normal prose containing curly braces', () => {
+      // CSS-like content with single { is fine if not a placeholder pattern.
+      expect(looksLikePlaceholder('Manage feature flags with { enabled: true } syntax')).toBe(false);
+    });
+
+    it('does NOT flag prose with a single `${name}` interpolation mention', () => {
+      // < 30% interpolation, dominated by real prose.
+      expect(
+        looksLikePlaceholder(
+          'Use this skill when the operator wants to send a message ${variable not present}',
+        ),
+      ).toBe(false);
+    });
+
+    it('does NOT flag empty / whitespace strings (caller handles)', () => {
+      expect(looksLikePlaceholder('')).toBe(false);
+      expect(looksLikePlaceholder('   ')).toBe(false);
+      expect(looksLikePlaceholder(null)).toBe(false);
+      expect(looksLikePlaceholder(undefined)).toBe(false);
+    });
+
+    it('does NOT flag real descriptive prose', () => {
+      expect(
+        looksLikePlaceholder('Generate user stories from product requirements documents'),
+      ).toBe(false);
+      expect(looksLikePlaceholder('Validation summary')).toBe(false);
+    });
+  });
+
+  describe('syncSelfRegistryEntry()', () => {
+    const SELF_PATH = '.aiox-core/data/entity-registry.yaml';
+    const SENTINEL = 'sha256:<self-reference>';
+
+    it('updates lastVerified and checksum on the self-entry when path matches', () => {
+      const registry = {
+        entities: {
+          data: {
+            'entity-registry': {
+              path: SELF_PATH,
+              checksum: 'sha256:stale-old-hash-1234567890abcdef',
+              lastVerified: '2026-01-01T00:00:00.000Z',
+              purpose: 'Entity at .aiox-core/data/entity-registry.yaml',
+            },
+          },
+        },
+      };
+      const newTimestamp = '2026-05-17T15:00:00.000Z';
+
+      syncSelfRegistryEntry(registry, newTimestamp, SENTINEL);
+
+      expect(registry.entities.data['entity-registry'].lastVerified).toBe(newTimestamp);
+      expect(registry.entities.data['entity-registry'].checksum).toBe(SENTINEL);
+    });
+
+    it('does NOT mutate entries whose path is different (other entity-registry pointing to .js module)', () => {
+      const registry = {
+        entities: {
+          data: {
+            'entity-registry': {
+              path: '.aiox-core/core/doctor/checks/entity-registry.js',
+              checksum: 'sha256:legitimate-js-module-hash-do-not-touch',
+              lastVerified: '2026-01-01T00:00:00.000Z',
+            },
+          },
+        },
+      };
+      const newTimestamp = '2026-05-17T15:00:00.000Z';
+
+      syncSelfRegistryEntry(registry, newTimestamp, SENTINEL);
+
+      expect(registry.entities.data['entity-registry'].checksum).toBe(
+        'sha256:legitimate-js-module-hash-do-not-touch',
+      );
+      expect(registry.entities.data['entity-registry'].lastVerified).toBe('2026-01-01T00:00:00.000Z');
+    });
+
+    it('is a no-op when entities.data does not exist', () => {
+      const registry = { entities: { agents: { foo: { path: 'irrelevant' } } } };
+      expect(() => syncSelfRegistryEntry(registry, '2026-05-17T15:00:00.000Z', SENTINEL)).not.toThrow();
+    });
+
+    it('is a no-op when self-entry is missing', () => {
+      const registry = {
+        entities: {
+          data: {
+            'some-other-data': { path: '.aiox-core/data/something.yaml', checksum: 'sha256:keep' },
+          },
+        },
+      };
+      syncSelfRegistryEntry(registry, '2026-05-17T15:00:00.000Z', SENTINEL);
+      // Other entries unchanged
+      expect(registry.entities.data['some-other-data'].checksum).toBe('sha256:keep');
+    });
+
+    it('is a no-op when registry is malformed (missing entities)', () => {
+      expect(() => syncSelfRegistryEntry({}, '2026-05-17T15:00:00.000Z', SENTINEL)).not.toThrow();
+      expect(() => syncSelfRegistryEntry(null, '2026-05-17T15:00:00.000Z', SENTINEL)).not.toThrow();
     });
   });
 
