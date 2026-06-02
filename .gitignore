@@ -375,3 +375,27 @@ build/
 .aiox-core/local/
 .claude/settings.local.json
 .aiox/install-log.txt
+
+# ============================================
+# ARQUIVOS LOCAIS / LIXO (nunca commitar)
+# ============================================
+# Zips temporários
+*.zip
+*.zip
+
+# OpenCode session files
+opencode.json*
+opencode.jsonc
+
+# Python virtualenvs e cache
+.venv/
+__pycache__/
+*.pyc
+*.pycache
+
+# Imagens de avaliação (dados locais)
+evalution_agents/
+
+# Arquivos gerados pelo AIOX core
+.aiox-core/package-lock.json
+.aiox-core/version.json

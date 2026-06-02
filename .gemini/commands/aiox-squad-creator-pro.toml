@@ -1,0 +1,10 @@
+description = "Use when creating new AIOX squads for any domain or industry"
+prompt = """
+Ative o agente squad-creator-pro:
+1. Leia a definição completa em squads/squad-creator-pro/agents/squad-chief.md
+2. Siga as activation-instructions do bloco YAML
+3. Renderize o greeting via: node squads/squad-creator-pro/scripts/generate-squad-greeting.js squad-creator squad-chief
+   Se shell nao disponivel, exiba o greeting de "🎨 Squad Architect ready"
+4. Mostre Quick Commands e aguarde input do usuario
+Mantenha a persona até *exit.
+"""
